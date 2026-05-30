@@ -103,6 +103,41 @@
 
     nav a:hover { color: var(--accent); }
 
+    /* ── WRITING TABS ── */
+    .writing-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .writing-tab {
+      font-family: var(--serif);
+      font-size: 0.85rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      padding: 10px 20px 10px 0;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .writing-tab:hover { color: var(--ink-light); }
+
+    .writing-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+
+    .writing-panel { display: none; }
+    .writing-panel.active { display: block; }
+
     /* ── SECTIONS ── */
     section {
       padding: 56px 0;
@@ -399,47 +434,98 @@
     <!-- WRITING -->
     <section id="writing">
       <div class="section-label">Writing</div>
-      <div class="writing-list">
 
-        <!-- Published essay -->
-        <div class="essay-card" onclick="openModal('essay1')">
-          <div class="essay-meta">
-            <span class="essay-date">May 2026</span>
-            <span class="essay-tag">AI &amp; Governance</span>
-          </div>
-          <div class="essay-title">When the Algorithm Ran the Empire: The Song Examination System and the Limits of Institutional Rationalization</div>
-          <div class="essay-lede">The Song dynasty replaced aristocratic patronage with a standardized examination — and created an epistemic system that became, over time, indistinguishable from the institution it served. A case study for the age of AI.</div>
-        </div>
-
-        <!-- Placeholders -->
-        <div class="essay-card essay-placeholder">
-          <div class="essay-meta">
-            <span class="essay-date">Forthcoming</span>
-            <span class="placeholder-tag">AI &amp; Rule of Law</span>
-          </div>
-          <div class="essay-title">Constitutional Norms and the Problem of Machine Judgment</div>
-          <div class="essay-lede">On the structural vulnerabilities AI introduces into legal and adjudicative institutions — and what constitutional history suggests about containing them.</div>
-        </div>
-
-        <div class="essay-card essay-placeholder">
-          <div class="essay-meta">
-            <span class="essay-date">Forthcoming</span>
-            <span class="placeholder-tag">Comparative History</span>
-          </div>
-          <div class="essay-title">Epistemic Authority in Crisis: Rome, China, and the Modern State</div>
-          <div class="essay-lede">A comparative account of how premodern states managed the delegitimization of existing knowledge systems — and what that history offers the present.</div>
-        </div>
-
-        <div class="essay-card essay-placeholder">
-          <div class="essay-meta">
-            <span class="essay-date">Forthcoming</span>
-            <span class="placeholder-tag">Democratic Institutions</span>
-          </div>
-          <div class="essay-title">The Speed Problem: Why Deliberative Democracy Struggles with Technological Change</div>
-          <div class="essay-lede">Democratic institutions are built for deliberation. AI accelerates decision-making beyond what deliberative systems were designed to handle. A historical and theoretical account of the mismatch.</div>
-        </div>
-
+      <!-- Tab buttons -->
+      <div class="writing-tabs">
+        <button class="writing-tab active" onclick="switchTab('featured', this)">Featured</button>
+        <button class="writing-tab" onclick="switchTab('public', this)">Public-Facing</button>
+        <button class="writing-tab" onclick="switchTab('academic', this)">Academic</button>
       </div>
+
+      <!-- FEATURED panel -->
+      <div class="writing-panel active" id="panel-featured">
+        <div class="writing-list">
+
+          <div class="essay-card" onclick="openModal('essay1')">
+            <div class="essay-meta">
+              <span class="essay-date">May 2026</span>
+              <span class="essay-tag">AI &amp; Governance</span>
+            </div>
+            <div class="essay-title">When the Algorithm Ran the Empire: The Song Examination System and the Limits of Institutional Rationalization</div>
+            <div class="essay-lede">The Song dynasty replaced aristocratic patronage with a standardized examination — and created an epistemic system that became, over time, indistinguishable from the institution it served. A case study for the age of AI.</div>
+          </div>
+
+          <div class="essay-card essay-placeholder">
+            <div class="essay-meta">
+              <span class="essay-date">Forthcoming</span>
+              <span class="placeholder-tag">Comparative History</span>
+            </div>
+            <div class="essay-title">Epistemic Authority in Crisis: Rome, China, and the Modern State</div>
+            <div class="essay-lede">A comparative account of how premodern states managed the delegitimization of existing knowledge systems — and what that history offers the present.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PUBLIC-FACING panel -->
+      <div class="writing-panel" id="panel-public">
+        <div class="writing-list">
+
+          <div class="essay-card" onclick="openModal('essay1')">
+            <div class="essay-meta">
+              <span class="essay-date">May 2026</span>
+              <span class="essay-tag">AI &amp; Governance</span>
+            </div>
+            <div class="essay-title">When the Algorithm Ran the Empire: The Song Examination System and the Limits of Institutional Rationalization</div>
+            <div class="essay-lede">The Song dynasty replaced aristocratic patronage with a standardized examination — and created an epistemic system that became, over time, indistinguishable from the institution it served. A case study for the age of AI.</div>
+          </div>
+
+          <div class="essay-card essay-placeholder">
+            <div class="essay-meta">
+              <span class="essay-date">Forthcoming</span>
+              <span class="placeholder-tag">AI &amp; Rule of Law</span>
+            </div>
+            <div class="essay-title">Constitutional Norms and the Problem of Machine Judgment</div>
+            <div class="essay-lede">On the structural vulnerabilities AI introduces into legal and adjudicative institutions — and what constitutional history suggests about containing them.</div>
+          </div>
+
+          <div class="essay-card essay-placeholder">
+            <div class="essay-meta">
+              <span class="essay-date">Forthcoming</span>
+              <span class="placeholder-tag">Democratic Institutions</span>
+            </div>
+            <div class="essay-title">The Speed Problem: Why Deliberative Democracy Struggles with Technological Change</div>
+            <div class="essay-lede">Democratic institutions are built for deliberation. AI accelerates decision-making beyond what deliberative systems were designed to handle. A historical and theoretical account of the mismatch.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ACADEMIC panel -->
+      <div class="writing-panel" id="panel-academic">
+        <div class="writing-list">
+
+          <div class="essay-card essay-placeholder">
+            <div class="essay-meta">
+              <span class="essay-date">Forthcoming</span>
+              <span class="placeholder-tag">Comparative History</span>
+            </div>
+            <div class="essay-title">Epistemic Authority in Crisis: Rome, China, and the Modern State</div>
+            <div class="essay-lede">A comparative account of how premodern states managed the delegitimization of existing knowledge systems — and what that history offers the present. Peer-reviewed article in preparation.</div>
+          </div>
+
+          <div class="essay-card essay-placeholder">
+            <div class="essay-meta">
+              <span class="essay-date">Under Contract</span>
+              <span class="placeholder-tag">Monograph</span>
+            </div>
+            <div class="essay-title">To Rise from the Ashes</div>
+            <div class="essay-lede">Book manuscript under contract with the University of Michigan Press.</div>
+          </div>
+
+        </div>
+      </div>
+
     </section>
 
     <!-- FOOTER / CONTACT -->
@@ -482,6 +568,13 @@
     }
   };
 
+  function switchTab(panelId, btn) {
+    document.querySelectorAll('.writing-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.writing-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + panelId).classList.add('active');
+    btn.classList.add('active');
+  }
+
   function openModal(id) {
     const essay = essays[id];
     if (!essay) return;
@@ -508,3 +601,4 @@
 
 </body>
 </html>
+
