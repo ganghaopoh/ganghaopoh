@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ganghao — History, Governance & AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink:        #1a1814;
+      --ink-light:  #4a4540;
+      --ink-faint:  #8a847c;
+      --rule:       #c8bfb0;
+      --accent:     #7a3a1e;
+      --ground:     #f7f4ef;
+      --ground-alt: #efe9e0;
+      --max-w:      720px;
+      --serif:      'EB Garamond', Georgia, serif;
+      --body:       'Crimson Pro', 'Georgia', serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      max-width: calc(var(--max-w) + 64px);
+      margin: 0 auto;
+      padding: 0 32px;
+      gap: 0 40px;
+    }
+
+    .rule {
+      grid-column: 1;
+      background: var(--rule);
+      grid-row: 1 / -1;
+      width: 1px;
+      justify-self: center;
+    }
+
+    .content {
+      grid-column: 2;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 80px 0 64px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .site-name {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .site-subtitle {
+      font-family: var(--body);
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      margin-top: 28px;
+      display: flex;
+      gap: 28px;
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
+    }
+
+    nav a {
+      font-family: var(--serif);
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 56px 0;
+      border-top: 1px solid var(--rule);
+      animation: fadeUp 0.8s ease both;
+    }
+
+    section:first-of-type { border-top: none; }
+
+    section + section { }
+
+    .section-label {
+      font-family: var(--serif);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 28px;
+    }
+
+    /* ── BIO ── */
+    .bio-name {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .bio-text {
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      max-width: 62ch;
+    }
+
+    .bio-text p + p { margin-top: 1em; }
+
+    .bio-meta {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bio-meta-item {
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    .bio-meta-item strong {
+      font-style: normal;
+      font-weight: 400;
+      color: var(--ink-light);
+    }
+
+    /* ── WRITING ── */
+    .writing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .essay-card {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--ground-alt);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .essay-card:last-child { border-bottom: none; }
+
+    .essay-card:hover .essay-title { color: var(--accent); }
+
+    .essay-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .essay-date {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+      font-family: var(--serif);
+      text-transform: uppercase;
+    }
+
+    .essay-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      border: 1px solid currentColor;
+      padding: 1px 8px;
+      border-radius: 2px;
+      font-family: var(--serif);
+      text-transform: uppercase;
+    }
+
+    .essay-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--ink);
+      transition: color 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .essay-lede {
+      font-size: 0.97rem;
+      color: var(--ink-light);
+      line-height: 1.65;
+      max-width: 60ch;
+    }
+
+    .essay-placeholder {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .placeholder-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+      border: 1px dashed var(--rule);
+      padding: 1px 8px;
+      border-radius: 2px;
+      font-family: var(--serif);
+      text-transform: uppercase;
+    }
+
+    /* ── ESSAY MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,24,20,0.55);
+      z-index: 100;
+      backdrop-filter: blur(2px);
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 48px 24px; }
+
+    .modal {
+      background: var(--ground);
+      max-width: 680px;
+      width: 100%;
+      padding: 56px 56px 72px;
+      position: relative;
+      animation: slideUp 0.3s ease both;
+      border-top: 3px solid var(--ink);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--ink-faint);
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--ink); }
+
+    .modal-label {
+      font-family: var(--serif);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      color: var(--ink);
+    }
+
+    .modal-body {
+      font-family: var(--body);
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    .modal-body p + p { margin-top: 1.2em; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px 0 64px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    .footer-contact {
+      margin-top: 10px;
+      font-size: 0.88rem;
+      color: var(--ink-faint);
+    }
+
+    .footer-contact a {
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-contact a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .page { padding: 0 20px; gap: 0 24px; }
+      .site-name { font-size: 2rem; }
+      .modal { padding: 40px 28px 56px; }
+      .modal-title { font-size: 1.5rem; }
+      header { padding: 56px 0 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="rule"></div>
+
+  <div class="content">
+
+    <!-- HEADER -->
+    <header>
+      <div class="site-name">Ganghao</div>
+      <div class="site-subtitle">History, Institutions &amp; Artificial Intelligence</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-label">About</div>
+      <div class="bio-name">Ganghao<br/>Assistant Professor of History</div>
+      <div class="bio-text">
+        <p>I am a historian of the premodern world — Rome, China, the ancient Mediterranean — whose research increasingly turns on a question that feels urgently contemporary: what happens to institutions when the systems they rely on to know things change faster than they can adapt?</p>
+        <p>My scholarly work examines transnational and comparative history across ancient civilizations. My public writing applies that training to the governance challenges posed by artificial intelligence — arguing that the historical record of institutional resilience and collapse has something precise, not merely analogical, to say about our present moment.</p>
+        <p>I am an Assistant Professor of History at Mercer University. My book manuscript, <em>To Rise from the Ashes</em>, is under contract with the University of Michigan Press.</p>
+      </div>
+      <div class="bio-meta">
+        <div class="bio-meta-item"><strong>Research:</strong> Transnational history · Rome &amp; China · Ancient Mediterranean · Digital humanities</div>
+        <div class="bio-meta-item"><strong>Affiliation:</strong> Mercer University, Department of History</div>
+        <div class="bio-meta-item"><strong>Training:</strong> PhD, Stanford University · BA, University of Michigan (Summa Cum Laude)</div>
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing">
+      <div class="section-label">Writing</div>
+      <div class="writing-list">
+
+        <!-- Published essay -->
+        <div class="essay-card" onclick="openModal('essay1')">
+          <div class="essay-meta">
+            <span class="essay-date">May 2026</span>
+            <span class="essay-tag">AI &amp; Governance</span>
+          </div>
+          <div class="essay-title">When the Algorithm Ran the Empire: The Song Examination System and the Limits of Institutional Rationalization</div>
+          <div class="essay-lede">The Song dynasty replaced aristocratic patronage with a standardized examination — and created an epistemic system that became, over time, indistinguishable from the institution it served. A case study for the age of AI.</div>
+        </div>
+
+        <!-- Placeholders -->
+        <div class="essay-card essay-placeholder">
+          <div class="essay-meta">
+            <span class="essay-date">Forthcoming</span>
+            <span class="placeholder-tag">AI &amp; Rule of Law</span>
+          </div>
+          <div class="essay-title">Constitutional Norms and the Problem of Machine Judgment</div>
+          <div class="essay-lede">On the structural vulnerabilities AI introduces into legal and adjudicative institutions — and what constitutional history suggests about containing them.</div>
+        </div>
+
+        <div class="essay-card essay-placeholder">
+          <div class="essay-meta">
+            <span class="essay-date">Forthcoming</span>
+            <span class="placeholder-tag">Comparative History</span>
+          </div>
+          <div class="essay-title">Epistemic Authority in Crisis: Rome, China, and the Modern State</div>
+          <div class="essay-lede">A comparative account of how premodern states managed the delegitimization of existing knowledge systems — and what that history offers the present.</div>
+        </div>
+
+        <div class="essay-card essay-placeholder">
+          <div class="essay-meta">
+            <span class="essay-date">Forthcoming</span>
+            <span class="placeholder-tag">Democratic Institutions</span>
+          </div>
+          <div class="essay-title">The Speed Problem: Why Deliberative Democracy Struggles with Technological Change</div>
+          <div class="essay-lede">Democratic institutions are built for deliberation. AI accelerates decision-making beyond what deliberative systems were designed to handle. A historical and theoretical account of the mismatch.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact">
+      <div class="footer-text">Writing on history, governance, and the long view.</div>
+      <div class="footer-contact">
+        Get in touch: <a href="mailto:poh_g@mercer.edu">poh_g@mercer.edu</a>
+      </div>
+    </footer>
+
+  </div><!-- /content -->
+</div><!-- /page -->
+
+<!-- ESSAY MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-label" id="modalLabel"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  const essays = {
+    essay1: {
+      label: "AI & Governance · May 2026",
+      title: "When the Algorithm Ran the Empire: The Song Examination System and the Limits of Institutional Rationalization",
+      body: `
+        <p>In the tenth century, the Song dynasty did something radical. It largely abolished the aristocratic networks that had staffed the Tang imperial bureaucracy and replaced them with a standardized written examination — the <em>keju</em> — open in principle to any literate male subject. The state would no longer rely on lineage, patronage, or personal recommendation to identify governing talent. It would rely on a system.</p>
+        <p>The results were, for a time, extraordinary. The examinations produced a genuinely meritocratic administrative class, dramatically expanded the pool of candidates eligible for office, and gave the dynasty a bureaucratic coherence its predecessors had lacked. They also created something less obviously beneficial: a single, centralized mechanism that determined who counted as qualified to govern, and on what terms.</p>
+        <p>That mechanism was not neutral. The examinations tested mastery of a specific canon — the Confucian classics, interpreted through approved commentaries — and rewarded a specific cognitive style: the ability to produce elegant, formulaic prose within tightly constrained parameters. Over time, the system became self-reinforcing. Preparation for the examinations consumed decades of elite male life. The commentaries that defined correct interpretation calcified. And the bureaucracy that the examinations produced was, by design, oriented backward — toward the reproduction of an approved body of knowledge — rather than forward, toward the novel problems a governing institution actually faces.</p>
+        <p>This is not a story about failure. The Song state was, by many measures, the most administratively sophisticated polity of its era. But it is a story about a specific kind of institutional vulnerability: what happens when a system designed to rationalize the identification of expertise becomes, over time, the definition of expertise itself.</p>
+        <p>The parallel to AI in contemporary governance is not decorative. Increasingly, AI systems are being proposed — and in some jurisdictions already used — as mechanisms for rationalizing decisions that institutions find difficult to make consistently: bail determinations, benefits eligibility, regulatory review, content moderation at scale. The appeal is the same appeal the Song examinations offered: consistency, scalability, the replacement of opaque human judgment with a legible, standardized process.</p>
+        <p>The Song case suggests we should ask a harder question than whether these systems are accurate. We should ask what happens to an institution's adaptive capacity when its epistemic authority — its ability to determine what counts as relevant knowledge, and who possesses it — is outsourced to a mechanism it no longer fully controls or comprehends. The examination system did not make the Song bureaucracy corrupt. It made it brittle in specific ways that only became visible under novel pressure: the military challenges of the northern frontier, the fiscal demands of a monetizing economy, the administrative complexity of governing a population larger than any the dynasty's founders had anticipated.</p>
+        <p>Democratic institutions face analogous pressures now, and at a speed that premodern states never encountered. The question is not only whether AI systems produce correct outputs. It is whether the institutions that adopt them retain the capacity to recognize when the outputs are wrong — and to adapt when they are.</p>
+        <p>The Song dynasty, in its later centuries, knew its examination system was producing certain kinds of officials and not others. What it could not do was change the system fast enough to matter. The mechanism had become the institution.</p>
+        <p>That is the failure mode worth studying.</p>
+      `
+    }
+  };
+
+  function openModal(id) {
+    const essay = essays[id];
+    if (!essay) return;
+    document.getElementById('modalLabel').textContent = essay.label;
+    document.getElementById('modalTitle').textContent = essay.title;
+    document.getElementById('modalBody').innerHTML = essay.body;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
